@@ -1,0 +1,33 @@
+﻿@page
+@model Asp_core_Razor_applictaion.Pages.IndexModel
+
+<ejs-schedule id="schedule" selectedDate="new DateTime(2023, 4, 1)" height="550px">
+    <e-schedule-eventsettings dataSource="@Model.DataSource"></e-schedule-eventsettings>
+    <e-schedule-header-rows>
+        <e-schedule-header-row option=Month template="#month-template"></e-schedule-header-row>
+        <e-schedule-header-row option=Week template="#week-template"></e-schedule-header-row>
+        <e-schedule-header-row option=Date></e-schedule-header-row>
+    </e-schedule-header-rows>
+    <e-schedule-views>
+        <e-schedule-view option="TimelineMonth" interval=12></e-schedule-view>
+    </e-schedule-views>
+</ejs-schedule>
+
+<script id="month-template">
+    <span>${ getMonthDetails(data) } </span>
+</script>
+
+<script id="week-template">
+    <span> ${ getWeekDetails(data) } </span>
+</script>
+
+<script>
+    var instance = new ej.base.Internationalization();
+    window.getMonthDetails = function (value) { 
+        return instance.formatDate(value.date, { skeleton: 'yMMMM' });
+    }
+
+    window.getWeekDetails = function (value) {
+        return 'Week ' + ej.schedule.getWeekNumber(value.date);
+    }
+</script>
